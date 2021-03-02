@@ -52,7 +52,7 @@ public class MinestomSparkPlugin extends Extension implements SparkPlugin {
 
     @Override
     public void terminate() {
-
+        platform.disable();
     }
 
     @Override
