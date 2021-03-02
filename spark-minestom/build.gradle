@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '4.0.1'
+}
+
+configurations {
+    shade
+    compile.extendsFrom shade
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url 'https://libraries.minecraft.net' }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.Minestom:Minestom:3971777e56'
+    shade project(':spark-common')
+}
+
+shadowJar {
+    archiveFileName = 'spark-minestom.jar'
+    configurations = [project.configurations.shade]
+
+    relocate 'okio', 'me.lucko.spark.lib.okio'
+    relocate 'okhttp3', 'me.lucko.spark.lib.okhttp3'
+    relocate 'net.kyori.text', 'me.lucko.spark.lib.text'
+    relocate 'org.tukaani.xz', 'me.lucko.spark.lib.xz'
+    relocate 'com.google.protobuf', 'me.lucko.spark.lib.protobuf'
+    relocate 'org.objectweb.asm', 'me.lucko.spark.lib.asm'
+
+    exclude 'module-info.class'
+    exclude 'META-INF/maven/**'
+    exclude 'META-INF/proguard/**'
+    dependencies {
+        exclude('com.github.Minestom:Minestom:master-SNAPSHOT')
+    }
+}
+
+artifacts {
+    shadow shadowJar
+}
