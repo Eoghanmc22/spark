@@ -21,6 +21,7 @@
 package me.lucko.spark.minestom;
 
 import me.lucko.spark.common.platform.AbstractPlatformInfo;
+import net.minestom.server.MinecraftServer;
 
 public class MinestomPlatformInfo extends AbstractPlatformInfo {
 
@@ -31,7 +32,7 @@ public class MinestomPlatformInfo extends AbstractPlatformInfo {
 
     @Override
     public String getName() {
-        return "Minestom";
+        return MinecraftServer.getBrandName();
     }
 
     @Override
@@ -41,6 +42,6 @@ public class MinestomPlatformInfo extends AbstractPlatformInfo {
 
     @Override
     public String getMinecraftVersion() {
-        return "1.16.5";
+        return MinecraftServer.VERSION_NAME;
     }
 }
